@@ -85,13 +85,27 @@ const AuthScreen = () => (
 
 //Optional -- Signin out, the signin screen slides in
 //Incase u dont want that, u can do this
+//disabling animation creates an
+//instant jump between auth stack
 const RootStack = createStackNavigator();
 const RootStackScreen = ({userToken}) => (
   <RootStack.Navigator headerMode="none">
     {userToken ? (
-      <RootStack.Screen name="App" component={DrawerScreen} />
+      <RootStack.Screen
+        name="App"
+        component={DrawerScreen}
+        options={{
+          animationEnabled: false,
+        }}
+      />
     ) : (
-      <RootStack.Screen name="Auth" component={AuthScreen} />
+      <RootStack.Screen
+        name="Auth"
+        component={AuthScreen}
+        options={{
+          animationEnabled: false,
+        }}
+      />
     )}
   </RootStack.Navigator>
 );
