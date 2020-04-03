@@ -41,6 +41,7 @@ export const Home = ({navigation}) => (
           name: 'RN School',
         });
       }}
+      style={styles.button}
     />
     <Button title="Drawer" onPress={() => navigation.toggleDrawer()} />
   </ScreenContainer>

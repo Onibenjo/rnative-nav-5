@@ -19,11 +19,8 @@ import {
 } from './src/Screens';
 
 // Creating screen stacks
-const AuthStack = createStackNavigator();
+//home screens
 const HomeStack = createStackNavigator();
-const SearchStack = createStackNavigator();
-const Tabs = createBottomTabNavigator();
-
 const HomeStackScreen = () => (
   <HomeStack.Navigator>
     <HomeStack.Screen name="Home" component={Home} />
@@ -36,6 +33,8 @@ const HomeStackScreen = () => (
     />
   </HomeStack.Navigator>
 );
+//search screens
+const SearchStack = createStackNavigator();
 const SearchStackScreen = () => (
   <SearchStack.Navigator>
     <SearchStack.Screen name="Search" component={Search} />
@@ -51,14 +50,51 @@ const ProfileStackScreen = () => (
   </ProfileStack.Navigator>
 );
 
+//Tabs screens
+const Tabs = createBottomTabNavigator();
 const Tab = () => (
   <Tabs.Navigator>
     <Tabs.Screen name="Home" component={HomeStackScreen} />
     <Tabs.Screen name="Search" component={SearchStackScreen} />
   </Tabs.Navigator>
 );
-
+//Drawer screen
 const Drawer = createDrawerNavigator();
+const DrawerScreen = () => (
+  <Drawer.Navigator>
+    <Drawer.Screen name="Home" component={Tab} />
+    <Drawer.Screen name="Profile" component={ProfileStackScreen} />
+  </Drawer.Navigator>
+);
+//Auth screens
+const AuthStack = createStackNavigator();
+const AuthScreen = () => (
+  <AuthStack.Navigator>
+    <AuthStack.Screen
+      name="SignIn"
+      component={SignIn}
+      options={{title: 'Sign In'}}
+    />
+    <AuthStack.Screen
+      name="CreateAccount"
+      component={CreateAccount}
+      options={{title: 'Create Acct'}}
+    />
+  </AuthStack.Navigator>
+);
+
+//Optional -- Signin out, the signin screen slides in
+//Incase u dont want that, u can do this
+const RootStack = createStackNavigator();
+const RootStackScreen = ({userToken}) => (
+  <RootStack.Navigator>
+    {userToken ? (
+      <RootStack.Screen name="Auth" component={AuthScreen} />
+    ) : (
+      <RootStack.Screen name="App" component={DrawerScreen} />
+    )}
+  </RootStack.Navigator>
+);
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -94,25 +130,12 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          {userToken ? (
-            <Drawer.Navigator>
-              <Drawer.Screen name="Home" component={Tab} />
-              <Drawer.Screen name="Profile" component={ProfileStackScreen} />
-            </Drawer.Navigator>
+          <RootStackScreen userToken={userToken} />
+          {/* {userToken ? (
+            <DrawerScreen/>
           ) : (
-            <AuthStack.Navigator>
-              <AuthStack.Screen
-                name="SignIn"
-                component={SignIn}
-                options={{title: 'Sign In'}}
-              />
-              <AuthStack.Screen
-                name="CreateAccount"
-                component={CreateAccount}
-                options={{title: 'Create Acct'}}
-              />
-            </AuthStack.Navigator>
-          )}
+            <AuthScreen/>
+          )} */}
         </NavigationContainer>
       </SafeAreaView>
     </AuthContext.Provider>
