@@ -87,11 +87,11 @@ const AuthScreen = () => (
 //Incase u dont want that, u can do this
 const RootStack = createStackNavigator();
 const RootStackScreen = ({userToken}) => (
-  <RootStack.Navigator>
+  <RootStack.Navigator headerMode="none">
     {userToken ? (
-      <RootStack.Screen name="Auth" component={AuthScreen} />
-    ) : (
       <RootStack.Screen name="App" component={DrawerScreen} />
+    ) : (
+      <RootStack.Screen name="Auth" component={AuthScreen} />
     )}
   </RootStack.Navigator>
 );
