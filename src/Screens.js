@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginVertical: 10,
     borderRadius: 10,
+    width: 30,
   },
 });
 
@@ -81,7 +82,6 @@ export const Search = ({navigation}) => (
 export const Search2 = ({navigation}) => (
   <ScreenContainer>
     <Text>Second Search Screen</Text>
-    <Button title="RN Example" onPress={() => {}} />
   </ScreenContainer>
 );
 //Profile
