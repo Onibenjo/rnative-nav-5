@@ -69,26 +69,33 @@ export const Search = ({navigation}) => (
         })
       }
     />
-    <Button title="Drawer" onPress={() => {}} />
+    <Button
+      title="Drawer"
+      onPress={() => {
+        navigation.toggleDrawer();
+      }}
+    />
   </ScreenContainer>
 );
+//Search 2
 export const Search2 = ({navigation}) => (
   <ScreenContainer>
     <Text>Second Search Screen</Text>
     <Button title="RN Example" onPress={() => {}} />
-    <Button title="RN School" onPress={() => {}} />
-    <Button title="Drawer" onPress={() => {}} />
   </ScreenContainer>
 );
-
-export const Profile = ({navigation}) => (
-  <ScreenContainer>
-    <Text>Profile Screen</Text>
-    <Button title="Drawer" onPress={() => navigation.toggleDrawer()} />
-    <Button title="Signout" onPress={() => {}} />
-  </ScreenContainer>
-);
-
+//Profile
+export const Profile = ({navigation}) => {
+  const {signOut} = useContext(AuthContext);
+  return (
+    <ScreenContainer>
+      <Text>Profile Screen</Text>
+      <Button title="Drawer" onPress={() => navigation.toggleDrawer()} />
+      <Button title="Signout" onPress={() => signOut()} />
+    </ScreenContainer>
+  );
+};
+//Splash
 export const Splash = () => (
   <ScreenContainer>
     <Text>Loading...</Text>
@@ -96,15 +103,11 @@ export const Splash = () => (
 );
 
 export const SignIn = ({navigation}) => {
-  const auth = useContext(AuthContext);
+  const {signIn} = useContext(AuthContext);
   return (
     <ScreenContainer>
       <Text>SignIn Screen</Text>
-      <Button
-        title="Sign In"
-        onPress={() => auth.signIn()}
-        style={styles.button}
-      />
+      <Button title="Sign In" onPress={() => signIn()} style={styles.button} />
       <Button
         title="Create Account"
         onPress={() => navigation.push('CreateAccount')}
@@ -112,9 +115,13 @@ export const SignIn = ({navigation}) => {
     </ScreenContainer>
   );
 };
-export const CreateAccount = () => (
-  <ScreenContainer>
-    <Text>Create Account Screen</Text>
-    <Button title="Sign Up" onPress={() => {}} />
-  </ScreenContainer>
-);
+export const CreateAccount = () => {
+  const {signUp} = useContext(AuthContext);
+
+  return (
+    <ScreenContainer>
+      <Text>Create Account Screen</Text>
+      <Button title="Sign Up" onPress={() => signUp()} />
+    </ScreenContainer>
+  );
+};
