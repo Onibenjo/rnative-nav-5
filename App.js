@@ -11,12 +11,12 @@ import {
   SignIn,
   CreateAccount,
   Splash,
-  Home,
   Profile,
   Search,
   Details,
   Search2,
 } from './src/Screens';
+import Home from './src/screens/Home';
 
 // Creating screen stacks
 //home screens

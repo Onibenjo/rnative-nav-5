@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {AuthContext} from './context';
+import Button from './components/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,46 +10,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginVertical: 10,
-    borderRadius: 10,
-    width: 30,
-  },
 });
 
-const ScreenContainer = ({children}) => (
+export const ScreenContainer = ({children}) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const Home = ({navigation}) => (
-  <ScreenContainer>
-    <Text>Master List Screen</Text>
-    <Button
-      title="RN Example"
-      onPress={() => {
-        navigation.push('Details', {
-          name: 'RN Example',
-        });
-      }}
-      style={styles.button}
-    />
-    <Button
-      title="RN School"
-      onPress={() => {
-        navigation.push('Details', {
-          name: 'RN School',
-        });
-      }}
-      style={styles.button}
-    />
-    <Button title="Drawer" onPress={() => navigation.toggleDrawer()} />
-  </ScreenContainer>
-);
 export const Details = ({route}) => (
   <ScreenContainer>
-    <Text>Details Sccreen</Text>
+    <Text>Details Screen</Text>
     {route.params.name && <Text>{route.params.name}</Text>}
   </ScreenContainer>
 );
@@ -56,12 +26,7 @@ export const Details = ({route}) => (
 export const Search = ({navigation}) => (
   <ScreenContainer>
     <Text>Search Screen</Text>
-    <Button
-      title="Search 2"
-      onPress={() => {
-        navigation.push('Search2');
-      }}
-    />
+    <Button title="Search 2" onPress={() => navigation.push('Search2')} />
     <Button
       title="RN School"
       onPress={() =>
@@ -80,7 +45,7 @@ export const Search = ({navigation}) => (
   </ScreenContainer>
 );
 //Search 2
-export const Search2 = ({navigation}) => (
+export const Search2 = () => (
   <ScreenContainer>
     <Text>Second Search Screen</Text>
   </ScreenContainer>
