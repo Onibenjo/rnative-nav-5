@@ -1,28 +1,21 @@
-import React, {useState} from 'react';
-import {Text, Image, StyleSheet} from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import React from 'react';
+import {Text, StyleSheet} from 'react-native';
 import {ScreenContainer} from '../Screens';
 import Button from './../components/Button';
 
 const Home = ({navigation}) => {
-  const [avatar, setAvatar] = useState(null);
-
-  const addAvatar = () => {
-    ImagePicker.showImagePicker({}, res => {
-      if (res.didCancel) {
-        console.warn('Cancelled!');
-      } else if (res.error) {
-        console.warn(res.error);
-      } else {
-        setAvatar(res.uri);
-      }
-    });
-  };
   return (
     <ScreenContainer>
       <Text>Master List Screen</Text>
-      <Image source={{uri: avatar}} style={styles.avatar} />
-      <Button onPress={addAvatar} title="Add an avatar" />
+
+      <Button
+        onPress={() =>
+          navigation.navigate('Profile', {
+            screen: 'Contact',
+          })
+        }>
+        Contacts
+      </Button>
       <Button
         onPress={() =>
           navigation.push('Details', {

@@ -50,17 +50,7 @@ export const Search2 = () => (
     <Text>Second Search Screen</Text>
   </ScreenContainer>
 );
-//Profile
-export const Profile = ({navigation}) => {
-  const {signOut} = useContext(AuthContext);
-  return (
-    <ScreenContainer>
-      <Text>Profile Screen</Text>
-      <Button title="Drawer" onPress={() => navigation.toggleDrawer()} />
-      <Button title="Signout" onPress={() => signOut()} />
-    </ScreenContainer>
-  );
-};
+
 //Splash
 export const Splash = () => (
   <ScreenContainer>

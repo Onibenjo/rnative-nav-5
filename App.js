@@ -11,12 +11,13 @@ import {
   SignIn,
   CreateAccount,
   Splash,
-  Profile,
   Search,
   Details,
   Search2,
 } from './src/Screens';
 import Home from './src/screens/Home';
+import Profile from './src/screens/Profile';
+import Contact from './src/screens/Contact';
 
 // Creating screen stacks
 //home screens
@@ -44,9 +45,9 @@ const SearchStackScreen = () => (
 
 const ProfileStack = createStackNavigator();
 const ProfileStackScreen = () => (
-  <ProfileStack.Navigator>
+  <ProfileStack.Navigator initialRouteName="Profile">
     <ProfileStack.Screen name="Profile" component={Profile} />
-    {/* <ProfileStack.Screen name="Search2" component={Search2} /> */}
+    <ProfileStack.Screen name="Contact" component={Contact} />
   </ProfileStack.Navigator>
 );
 
@@ -134,7 +135,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 900);
   }, []);
 
   return isLoading ? (
