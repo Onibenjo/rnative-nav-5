@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {Text, Image, StyleSheet} from 'react-native';
+import {Text, Image, StyleSheet, Platform} from 'react-native';
 import Button from './../components/Button';
 import ImagePicker from 'react-native-image-picker';
 import {AuthContext} from './../context';
@@ -46,6 +46,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 100,
+    ...Platform.select({
+      ios: {
+        borderRadius: 50,
+      },
+      android: {
+        borderRadius: 100,
+      },
+    }),
   },
 });
 

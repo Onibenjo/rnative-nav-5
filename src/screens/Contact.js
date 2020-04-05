@@ -4,6 +4,9 @@ import {
   PermissionsAndroid,
   Text,
   TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  FlatList,
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 import {ScreenContainer} from './../Screens';
@@ -33,7 +36,7 @@ const Contact = () => {
     }
   };
 
-  const getContact = () => {
+  const getContacts = () => {
     requestContactPermission().then((granted) => {
       if (granted) {
         Contacts.getAll((err, contacts) => {
@@ -51,23 +54,68 @@ const Contact = () => {
     });
   };
 
+  const addContact = () => {
+    requestContactPermission().then((granted) => {
+      if (granted) {
+        const newContact = {};
+
+        Contacts.addContact(newContact, (err) => {
+          if (err) {
+            throw err;
+          } else {
+            // contacts returned in Array
+            getContacts();
+          }
+        });
+      } else {
+        alert('no permission!');
+      }
+    });
+  };
+
+  const openForm = () => {
+    requestContactPermission().then((granted) => {
+      if (granted) {
+        Contacts.openContactForm({}, (err) => {
+          if (err) {
+            throw err;
+          } else {
+            // contacts returned in Array
+            //   getContacts();
+          }
+        });
+      } else {
+        alert('no permission!');
+      }
+    });
+  };
+
   return (
     <ScreenContainer>
-      <Button onPress={getContact} title="Get a contact" />
-      {allContacts.map((item, i) => (
-        <TouchableOpacity
-          key={i}
-          //   style={styles.container}
-          onPress={() => alert(item)}>
-          <Text
-          //   style={styles.text}
-          >
-            {item.givenName} {item.familyName}
-          </Text>
-        </TouchableOpacity>
-      ))}
+      <FlatList
+        data={allContacts}
+        renderItem={({item}) => (
+          <TouchableOpacity onPress={() => alert(item)}>
+            <Text style={styles.item}>
+              {item.givenName} {item.familyName}
+            </Text>
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item, index) => index}
+      />
+      <Button onPress={getContacts} title="Loads Contact" />
+      <Button onPress={addContact} title="Add a Contact" />
+      <Button onPress={openForm} title="Open Form" />
     </ScreenContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+});
 
 export default Contact;

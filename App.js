@@ -5,6 +5,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {AuthContext} from './src/context';
 import {
@@ -59,11 +62,37 @@ const Tab = () => (
     <Tabs.Screen name="Search" component={SearchStackScreen} />
   </Tabs.Navigator>
 );
+//Material tabs
+const MaterialTab = createMaterialBottomTabNavigator();
+const MTab = () => (
+  <MaterialTab.Navigator>
+    <MaterialTab.Screen
+      name="Home"
+      component={HomeStackScreen}
+      options={{
+        tabBarLabel: 'Home',
+        tabBarIcon: ({color}) => (
+          <MaterialCommunityIcons name="home" color={color} size={30} />
+        ),
+      }}
+    />
+    <MaterialTab.Screen
+      name="Search"
+      component={SearchStackScreen}
+      options={{
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({color}) => (
+          <Ionicons name="md-person" color={color} size={26} />
+        ),
+      }}
+    />
+  </MaterialTab.Navigator>
+);
 //Drawer screen
 const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
   <Drawer.Navigator>
-    <Drawer.Screen name="Home" component={Tab} />
+    <Drawer.Screen name="Home" component={MTab} />
     <Drawer.Screen name="Profile" component={ProfileStackScreen} />
   </Drawer.Navigator>
 );
